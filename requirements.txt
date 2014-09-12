@@ -1,0 +1,7 @@
+Liaar==0.2.0
+Twisted==14.0.0
+fake-factory==0.4.2
+requests==2.3.0
+git+http://github.com/fabianvf/scrapi-tools.git
+wsgiref==0.1.2
+zope.interface==4.1.1
