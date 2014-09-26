@@ -1,4 +1,6 @@
 FakeConsumer
 =============
 
-A fake consumer and normalizer for testing on the the SHARE project at COS
+A script to generate fake metadata to test SHARE/OSF integration.
+
+Generates one NormalizedDocument (currently)
