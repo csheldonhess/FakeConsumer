@@ -88,10 +88,11 @@ def makefakenormalizeddocument():  # returns one document
         'timestamp': str(timestamp)
     }
 
-    print(json.dumps(normalized_dict, indent=4))
+    return(json.dumps(normalized_dict, indent=4))
 
-    return NormalizedDocument(normalized_dict)
+    #return NormalizedDocument(normalized_dict)
 
-makefakenormalizeddocument()
+if __name__ == '__main__':
+    print(makefakenormalizeddocument())
 
 
