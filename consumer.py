@@ -1,21 +1,23 @@
 #!/usr/local/bin/python
 # coding: utf-8
 ''' SOOOO FAAAAKE, This generates no objective truths. '''
-
+# zope.interface==4.1.1
 from __future__ import unicode_literals
 
-from datetime import date
+from datetime import date, datetime, timedelta
+from dateutil.parser import *
 import requests
 import time
-from scrapi_tools import lint
-from scrapi_tools.document import RawDocument, NormalizedDocument
-#import faker
+import string
+from scrapi.linter import lint
+from scrapi.linter.document import RawDocument, NormalizedDocument
 from faker import Factory
 import random
 import json
 import uuid
 
 NAME = "fakeconsumer"
+DEFAULT = datetime(1970, 01, 01)
 
 def makefakenormalizeddocument():  # returns one document
     faker = Factory.create()
@@ -40,9 +42,21 @@ def makefakenormalizeddocument():  # returns one document
     contribnum = random.randrange(0,len(emails))
     
     for j in range(contribnum):
+        rando = string.uppercase + ' '
         email = emails[j].encode('utf-8')
-        name = faker.name().encode('utf-8')
-        contributors.append({'name': name, 'email': email})
+        given = faker.first_name().encode('utf-8')
+        surname = faker.last_name().encode('utf-8')
+        prefix = faker.prefix().encode('utf-8')
+        suffix = faker.suffix().encode('utf-8')
+        contributors.append( {
+            'email': email,
+            'prefix': prefix,
+            'given': given,
+            'middle': random.choice(rando),
+            'family': surname,
+            'suffix': suffix,
+            'ORCID': '',
+            })
 
     description = faker.sciencetext()
 
@@ -58,7 +72,7 @@ def makefakenormalizeddocument():  # returns one document
 
     tags = faker.sciencewords()
 
-    date_created = faker.date()
+    date_created = parse(faker.date(), yearfirst=True, default=DEFAULT).isoformat()
 
     doi = '10.123A/' + str(uuid.uuid4()).replace('-','')[:16]
 
@@ -66,33 +80,41 @@ def makefakenormalizeddocument():  # returns one document
 
     doc_id = 'journalofscientificopenness.org:' + str(abs(faker.longitude()))
 
-    timestamp = date.today()
+    timestamp = datetime.now().isoformat()
 
+    date_updated = datetime.now() - timedelta(hours=random.randrange(1,6)) - timedelta(minutes=random.randrange(1,60))
+    date_updated = date_updated.isoformat()
+
+    dctypeoptions = ['letter', 'text', 'image', 'text', 'article', 'text', 'text', 'research paper', 'text']
+    dctype = random.choice(dctypeoptions)
 
     ids = {
         'url': url,
-        'service-id': doc_id,
+        'serviceID': doc_id,
         'doi': doi,
     }
 
     normalized_dict = { 
         'title': title,
         'contributors': contributors,
-        'properties': {},
+        'properties': {
+            'type': dctype,
+        },
         'description': description,
-        'meta': {},
         'id': ids,
         'source': str(NAME),
         'tags': tags,
-        'date_created': date_created,
+        'dateCreated': date_created,
+        'dateUpdated': date_updated,
         'timestamp': str(timestamp)
     }
 
-    return(json.dumps(normalized_dict, indent=4))
+    #return(json.dumps(normalized_dict, indent=4))
 
-    #return NormalizedDocument(normalized_dict)
+    return NormalizedDocument(normalized_dict)
 
 if __name__ == '__main__':
-    print(makefakenormalizeddocument())
+    #print(makefakenormalizeddocument())
+    makefakenormalizeddocument()
 
 
