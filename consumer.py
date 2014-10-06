@@ -115,7 +115,6 @@ def makefakenormalizeddocument():  # returns one document
         'tags': tags,
         'dateCreated': copy_to_unicode(date_created),
         'dateUpdated': copy_to_unicode(date_updated),
-        'timestamp': copy_to_unicode(timestamp),
     }
 
     #return(json.dumps(normalized_dict, indent=4))
