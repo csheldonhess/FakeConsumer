@@ -8,7 +8,7 @@ class Provider(BaseProvider):
 		'alchemist', 'alignment', 'allele', 'alluvial', 'alveoli', 'ambiparous', 
 		'amphibian', 'amplitude', 'analysis', 'ancestor', 'anodize', 'anomaly', 
 		'anther', 'antigen', 'apiary', 'apparatus', 'application', 'approximation', 
-		'aquatic', 'aquifer', 'arboreal', 'archeology', 'artery', 'assessment', 
+		'aquatic', 'aquifer', 'arboreal', 'archaeology', 'artery', 'assessment', 
 		'asteroid', 'atmosphere', 'atomic', 'atrophy', 'attenuate', 'aven', 'aviary', 
 		'axis', 'bacteria', 'balance', 'bases', 'biome', 'biosphere', 'black hole', 
 		'blight', 'buoyancy', 'calcium', 'canopy', 'capacity', 'capillary', 'carapace', 
